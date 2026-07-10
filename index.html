@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FATHUR SERVICE / JUAL KIPAS ANGIN</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css"> 
+</head>
+  <style>
+    /* ==================== RESET & BASE ==================== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #fff; overflow-x: hidden; line-height: 1.5; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    ul { list-style: none; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #0a0a0a; }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #F74E09; }
+
+    /* ==================== KEYFRAMES ==================== */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes float { 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-20px); } }
+    @keyframes floatRev { 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(15px); } }
+    @keyframes spin { from{ transform:rotate(0deg); } to{ transform:rotate(360deg); } }
+    @keyframes spinSlow { from{ transform:rotate(0deg); } to{ transform:rotate(360deg); } }
+    @keyframes glow { 0%,100%{ box-shadow:0 0 20px rgba(247,78,9,0.3); } 50%{ box-shadow:0 0 40px rgba(247,78,9,0.6); } }
+    @keyframes marquee { 0%{ transform:translateX(0); } 100%{ transform:translateX(-50%); } }
+    @keyframes pulse { 0%,100%{ opacity:1; } 50%{ opacity:0.5; } }
+
+    .anim-fade { opacity: 0; animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards; }
+    .d1 { animation-delay: 0.1s; }
+    .d2 { animation-delay: 0.2s; }
+    .d3 { animation-delay: 0.3s; }
+    .d4 { animation-delay: 0.4s; }
+    .d5 { animation-delay: 0.5s; }
+    .d6 { animation-delay: 0.6s; }
+    .anim-float { animation: float 6s ease-in-out infinite; }
+    .anim-float-d { animation: float 7s ease-in-out infinite 1s; }
+    .anim-float-r { animation: floatRev 8s ease-in-out infinite; }
+    .anim-spin { animation: spin 3s linear infinite; }
+    .anim-spin-s { animation: spinSlow 6s linear infinite; }
+    .anim-glow { animation: glow 2s ease-in-out infinite; }
+    .anim-marquee { animation: marquee 20s linear infinite; }
+    .anim-pulse { animation: pulse 2s ease-in-out infinite; }
+
+    /* ==================== UTILITY ==================== */
+    .container { max-width: 80rem; margin: 0 auto; padding: 0 1.5rem; }
+    @media(min-width:1024px) { .container { padding: 0 3rem; } }
+    .gradient-text { background: linear-gradient(to right, #fff, #737373); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .orange { color: #F74E09; }
+    .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 1rem 2rem; border-radius: 1rem; font-size: 1.125rem; font-weight: 600; transition: all 0.15s ease; cursor: pointer; border: none; }
+    .btn:hover { transform: scale(1.05); }
+    .btn-orange { background: #F74E09; color: #fff; }
+    .btn-orange:hover { box-shadow: 0 0 20px rgba(247,78,9,0.3); }
+    .btn-ghost { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; }
+    .btn-ghost:hover { background: rgba(255,255,255,0.1); }
+    .icon { width: 1.25rem; height: 1.25rem; flex-shrink: 0; }
+
+    /* ==================== MOBILE MENU (CSS ONLY) ==================== */
+    #menuToggle { display: none; }
+    #menuToggle:checked ~ #mobileMenu { transform: translateX(0); }
+    #menuToggle:checked ~ #mobileOverlay { display: block; }
+    #mobileMenu { transform: translateX(100%); transition: transform 0.3s ease; }
+    #mobileOverlay { display: none; }
+
+    /* ==================== NAVBAR ==================== */
+    .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: rgba(10,10,10,0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .navbar-inner { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.5rem; max-width: 80rem; margin: 0 auto; }
+    @media(min-width:1024px) { .navbar-inner { padding: 1rem 3rem; } }
+    .nav-brand { display: flex; align-items: center; gap: 0.75rem; }
+    .nav-logo { width: 2.5rem; height: 2.5rem; background: linear-gradient(135deg, #fb923c, #D93D00); border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; }
+    .nav-logo svg { width: 1.25rem; height: 1.25rem; color: #fff; }
+    .nav-name { font-size: 0.875rem; font-weight: 600; line-height: 1.2; }
+    .nav-sub { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #a3a3a3; }
+    .nav-links { display: none; gap: 2rem; align-items: center; }
+    @media(min-width:768px) { .nav-links { display: flex; } }
+    .nav-links a { font-size: 0.875rem; color: #a3a3a3; transition: color 0.15s; }
+    .nav-links a:hover { color: #fff; }
+    .nav-cta { display: none; }
+    @media(min-width:768px) { .nav-cta { display: flex; } }
+    .nav-cta a { background: #F74E09; color: #fff; padding: 0.625rem 1.25rem; border-radius: 0.75rem; font-size: 0.875rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; transition: all 0.15s; }
+    .nav-cta a:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(247,78,9,0.3); }
+    .hamburger { display: flex; width: 2.5rem; height: 2.5rem; align-items: center; justify-content: center; border-radius: 0.75rem; background: rgba(255,255,255,0.05); cursor: pointer; border: none; color: #fff; }
+    @media(min-width:768px) { .hamburger { display: none; } }
+    .hamburger:hover { background: rgba(255,255,255,0.1); }
+
+    /* Mobile Menu Panel */
+    .mobile-panel { position: fixed; top: 0; right: 0; bottom: 0; width: 18rem; z-index: 60; background: #1a1a1a; border-left: 1px solid rgba(255,255,255,0.1); padding: 5rem 1.5rem 1.5rem; }
+    .mobile-panel-close { position: absolute; top: 1.25rem; right: 1.25rem; width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; border-radius: 0.75rem; background: rgba(255,255,255,0.05); cursor: pointer; border: none; color: #fff; }
+    .mobile-panel-close:hover { background: rgba(255,255,255,0.1); }
+    .mobile-panel a { display: block; font-size: 0.875rem; color: #d4d4d4; padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); transition: color 0.15s; }
+    .mobile-panel a:hover { color: #fff; }
+    .mobile-panel .btn { width: 100%; justify-content: center; margin-top: 1.5rem; font-size: 0.875rem; padding: 0.75rem; }
+    .mobile-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 55; }
+
+    /* ==================== HERO ==================== */
+    .hero { position: relative; padding: 8rem 1.5rem 6rem; overflow: hidden; }
+    @media(min-width:1024px) { .hero { padding: 10rem 3rem 6rem; } }
+    .hero-glow { position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(247,78,9,0.15) 0%, transparent 70%); pointer-events: none; }
+    .hero-blob1 { position: absolute; top: 5rem; left: 2.5rem; width: 18rem; height: 18rem; background: rgba(247,78,9,0.1); border-radius: 50%; filter: blur(60px); pointer-events: none; }
+    .hero-blob2 { position: absolute; bottom: 2.5rem; right: 2.5rem; width: 24rem; height: 24rem; background: rgba(247,78,9,0.05); border-radius: 50%; filter: blur(60px); pointer-events: none; }
+    .hero-grid { max-width: 80rem; margin: 0 auto; display: grid; gap: 3rem; position: relative; z-index: 1; }
+    @media(min-width:1024px) { .hero-grid { grid-template-columns: 7fr 5fr; align-items: center; } }
+    .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 9999px; padding: 0.5rem 1rem; margin-bottom: 1.5rem; }
+    .hero-badge-dot { width: 0.5rem; height: 0.5rem; background: #F74E09; border-radius: 50%; }
+    .hero-badge span { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #a3a3a3; }
+    .hero h1 { font-size: clamp(3rem, 8vw, 6rem); font-weight: 600; text-transform: uppercase; line-height: 0.9; letter-spacing: -0.03em; margin-bottom: 1.5rem; }
+    .hero-desc { font-size: 1.25rem; color: #a3a3a3; font-weight: 500; line-height: 1.7; max-width: 36rem; margin-bottom: 2rem; }
+    .hero-btns { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 3rem; }
+    .hero-stats { display: flex; flex-wrap: wrap; gap: 2rem; }
+    .hero-stats > div + div { border-left: 1px solid rgba(255,255,255,0.1); padding-left: 2rem; }
+    @media(max-width:767px) { .hero-stats > div + div { border: none; padding: 0; } }
+    .stat-num { font-size: 1.875rem; font-weight: 600; }
+    .stat-label { font-size: 0.875rem; color: #737373; }
+
+    /* Hero Visual */
+    .hero-visual { display: none; position: relative; }
+    @media(min-width:1024px) { .hero-visual { display: block; } }
+    .hero-card { border-radius: 1.5rem; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); transform: rotateY(-5deg) rotateX(5deg); perspective: 1000px; }
+    .hero-card img { width: 100%; height: 24rem; object-fit: cover; }
+    .hero-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,10,0.9), transparent); }
+    .hero-card-badge { position: absolute; bottom: 1.5rem; left: 1.5rem; right: 1.5rem; background: rgba(0,0,0,0.5); backdrop-filter: blur(12px); border-radius: 1rem; padding: 1rem; border: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; }
+    .hero-card-badge .tag { font-size: 0.75rem; color: #fb923c; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+    .hero-card-badge .name { font-size: 1.125rem; font-weight: 600; margin-top: 0.25rem; }
+    .hero-card-badge .old { font-size: 0.875rem; color: #737373; text-decoration: line-through; }
+    .hero-card-badge .price { font-size: 1.25rem; font-weight: 700; color: #F74E09; }
+    .hero-float-badge { position: absolute; top: -1rem; right: -1rem; z-index: 2; background: #F74E09; color: #fff; border-radius: 1rem; padding: 0.75rem 1rem; text-align: center; }
+    .hero-float-badge .big { font-size: 1.5rem; font-weight: 700; }
+    .hero-float-badge .small { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.8; }
+    .hero-float-fan { position: absolute; bottom: -1.5rem; left: -1.5rem; z-index: 2; width: 5rem; height: 5rem; background: #1a1a1a; border: 1px solid rgba(255,255,255,0.1); border-radius: 1rem; display: flex; align-items: center; justify-content: center; }
+    .hero-float-fan svg { width: 2.5rem; height: 2.5rem; color: #F74E09; }
+    .hero-float-rating { position: absolute; top: 50%; right: -2rem; z-index: 2; background: #1a1a1a; border: 1px solid rgba(255,255,255,0.1); border-radius: 1rem; padding: 0.75rem 1rem; }
+    .hero-float-rating .stars { display: flex; gap: 0.125rem; margin-bottom: 0.25rem; }
+    .hero-float-rating .stars svg { width: 1rem; height: 1rem; color: #facc15; fill: #facc15; }
+    .hero-float-rating .count { font-size: 0.75rem; color: #a3a3a3; }
+
+    /* ==================== MARQUEE ==================== */
+    .marquee { padding: 2rem 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); overflow: hidden; }
+    .marquee-track { display: flex; align-items: center; gap: 3rem; white-space: nowrap; }
+    .marquee-item { color: #525252; font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; }
+    .marquee-dot { color: #404040; }
+
+    /* ==================== SECTION COMMON ==================== */
+    .section { padding: 6rem 1.5rem; }
+    @media(min-width:1024px) { .section { padding: 6rem 3rem; } }
+    .section-light { background: #fafafa; color: #171717; }
+    .section-dark { background: #0a0a0a; color: #fff; }
+    .rounded-top { border-radius: 3rem 3rem 0 0; }
+    .section-header { text-align: center; margin-bottom: 4rem; }
+    .section-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 9999px; padding: 0.5rem 1rem; margin-bottom: 1rem; }
+    .section-badge svg { width: 1rem; height: 1rem; color: #F74E09; }
+    .section-badge span { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #a3a3a3; }
+    .section-badge-o { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(247,78,9,0.1); border: 1px solid rgba(247,78,9,0.2); border-radius: 9999px; padding: 0.5rem 1rem; margin-bottom: 1rem; }
+    .section-badge-o svg { width: 1rem; height: 1rem; color: #F74E09; }
+    .section-badge-o span { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #D93D00; }
+    .section-title { font-size: clamp(2.25rem, 5vw, 3.75rem); font-weight: 600; text-transform: uppercase; line-height: 0.95; letter-spacing: -0.03em; }
+    .section-title-dark { font-size: clamp(2.25rem, 5vw, 3.75rem); font-weight: 600; text-transform: uppercase; line-height: 0.95; letter-spacing: -0.03em; color: #171717; }
+    .section-desc { font-size: 1.125rem; color: #a3a3a3; margin-top: 1rem; max-width: 42rem; margin-left: auto; margin-right: auto; }
+    .section-desc-dark { font-size: 1.125rem; color: #737373; margin-top: 1rem; max-width: 42rem; margin-left: auto; margin-right: auto; }
+
+    /* ==================== PRODUCTS ==================== */
+    .products-grid { display: grid; gap: 1.5rem; max-width: 80rem; margin: 0 auto; }
+    @media(min-width:768px) { .products-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media(min-width:1024px) { .products-grid { grid-template-columns: repeat(3, 1fr); } }
+    .product-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 1.5rem; overflow: hidden; transition: all 0.4s cubic-bezier(0.175,0.885,0.32,1.275); }
+    .product-card:hover { transform: translateY(-8px) scale(1.02); }
+    .product-img-wrap { position: relative; overflow: hidden; }
+    .product-img { width: 100%; height: 14rem; object-fit: cover; transition: transform 0.5s; }
+    .product-card:hover .product-img { transform: scale(1.1) rotate(2deg); }
+    .product-tag { position: absolute; top: 1rem; left: 1rem; background: rgba(255,255,255,0.1); backdrop-filter: blur(12px); color: #fff; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.375rem 0.75rem; border-radius: 9999px; transition: background 0.3s; }
+    .product-card:hover .product-tag { background: #F74E09; }
+    .product-disc { position: absolute; top: 1rem; right: 1rem; background: #ef4444; color: #fff; font-size: 0.75rem; font-weight: 700; padding: 0.375rem 0.75rem; border-radius: 9999px; }
+    .product-body { padding: 1.5rem; }
+    .product-cat { font-size: 0.75rem; color: #F74E09; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.25rem; }
+    .product-name { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .product-desc { font-size: 0.875rem; color: #737373; margin-bottom: 1rem; line-height: 1.5; }
+    .product-pricing { display: flex; align-items: center; }
+    .price-old { font-size: 0.875rem; color: #737373; text-decoration: line-through; }
+    .price-new { font-size: 1.5rem; font-weight: 700; color: #F74E09; margin-left: 0.5rem; }
+    .btn-order { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; margin-top: 1rem; background: #F74E09; color: #fff; padding: 0.75rem; border-radius: 0.75rem; font-size: 0.875rem; font-weight: 600; transition: all 0.15s; }
+    .btn-order:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(247,78,9,0.3); }
+    .btn-order svg { width: 1rem; height: 1rem; }
+
+    /* ==================== SERVICES ==================== */
+    .services-grid { display: grid; gap: 1.5rem; max-width: 80rem; margin: 0 auto; }
+    @media(min-width:768px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media(min-width:1024px) { .services-grid { grid-template-columns: repeat(3, 1fr); } }
+    .service-card { background: #fff; border: 1px solid #e5e5e5; border-radius: 1.5rem; padding: 2rem; transition: all 0.4s cubic-bezier(0.175,0.885,0.32,1.275); }
+    .service-card:hover { transform: translateY(-8px) scale(1.02); }
+    .service-icon { width: 3.5rem; height: 3.5rem; background: rgba(247,78,9,0.1); border-radius: 1rem; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; }
+    .service-icon svg { width: 1.75rem; height: 1.75rem; color: #F74E09; }
+    .service-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.75rem; }
+    .service-desc { color: #737373; line-height: 1.7; }
+    .service-cta { background: linear-gradient(135deg, #fb923c, #D93D00); border-radius: 1.5rem; padding: 2rem; color: #fff; transition: all 0.4s cubic-bezier(0.175,0.885,0.32,1.275); }
+    .service-cta:hover { transform: translateY(-8px) scale(1.02); }
+    .service-cta .icon-wrap { width: 3.5rem; height: 3.5rem; background: rgba(255,255,255,0.2); border-radius: 1rem; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; }
+    .service-cta .icon-wrap svg { width: 1.75rem; height: 1.75rem; color: #fff; }
+    .service-cta h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.75rem; }
+    .service-cta p { color: rgba(255,255,255,0.8); line-height: 1.7; margin-bottom: 1.5rem; }
+    .btn-white { display: inline-flex; align-items: center; gap: 0.5rem; background: #fff; color: #D93D00; padding: 0.75rem 1.25rem; border-radius: 0.75rem; font-size: 0.875rem; font-weight: 600; transition: transform 0.15s; }
+    .btn-white:hover { transform: scale(1.05); }
+
+    /* ==================== ADVANTAGES ==================== */
+    .adv-grid { display: grid; gap: 3rem; align-items: center; max-width: 80rem; margin: 0 auto; }
+    @media(min-width:1024px) { .adv-grid { grid-template-columns: 5fr 7fr; } }
+    .adv-img { position: relative; border-radius: 1.5rem; overflow: hidden; }
+    .adv-img img { width: 100%; height: 31.25rem; object-fit: cover; }
+    .adv-img-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.6), transparent); }
+    .adv-img-badge { position: absolute; bottom: 1.5rem; left: 1.5rem; right: 1.5rem; background: rgba(255,255,255,0.2); backdrop-filter: blur(12px); border-radius: 1rem; padding: 1.25rem; border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; gap: 1rem; }
+    .adv-img-badge .ib-icon { width: 3rem; height: 3rem; background: #F74E09; border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .adv-img-badge .ib-icon svg { width: 1.5rem; height: 1.5rem; color: #fff; }
+    .adv-img-badge .ib-title { font-weight: 600; }
+    .adv-img-badge .ib-desc { font-size: 0.875rem; color: rgba(255,255,255,0.7); }
+    .adv-item { display: flex; gap: 1rem; }
+    .adv-icon { width: 3rem; height: 3rem; background: rgba(247,78,9,0.1); border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .adv-icon svg { width: 1.5rem; height: 1.5rem; color: #F74E09; }
+    .adv-title { font-size: 1.125rem; font-weight: 600; margin-bottom: 0.25rem; }
+    .adv-desc { color: #737373; font-size: 0.875rem; }
+    .progress-track { margin-top: 0.5rem; background: #e5e5e5; border-radius: 9999px; height: 0.5rem; width: 100%; max-width: 20rem; overflow: hidden; }
+    .progress-fill { height: 100%; background: #F74E09; border-radius: 9999px; animation: growBar 1.5s ease-out forwards; animation-play-state: paused; }
+    @keyframes growBar { from { width: 0; } to { width: var(--w); } }
+    .adv-list .adv-item:nth-child(1) .progress-fill { animation-delay: 0.3s; }
+    .adv-list .adv-item:nth-child(2) .progress-fill { animation-delay: 0.5s; }
+    .adv-list .adv-item:nth-child(3) .progress-fill { animation-delay: 0.7s; }
+    .adv-list .adv-item:nth-child(4) .progress-fill { animation-delay: 0.9s; }
+
+    /* ==================== TESTIMONIALS ==================== */
+    .testi-grid { display: grid; gap: 1.5rem; max-width: 80rem; margin: 0 auto; }
+    @media(min-width:768px) { .testi-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media(min-width:1024px) { .testi-grid { grid-template-columns: repeat(3, 1fr); } }
+    .testi-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 1.5rem; padding: 2rem; transition: all 0.4s cubic-bezier(0.175,0.885,0.32,1.275); }
+    .testi-card:hover { transform: translateY(-8px) scale(1.02); }
+    .testi-stars { display: flex; gap: 0.25rem; margin-bottom: 1rem; }
+    .testi-stars svg { width: 1.25rem; height: 1.25rem; color: #facc15; fill: #facc15; }
+    .testi-text { color: #d4d4d4; line-height: 1.7; margin-bottom: 1.5rem; font-size: 0.95rem; }
+    .testi-author { display: flex; align-items: center; gap: 0.75rem; }
+    .testi-avatar { width: 2.5rem; height: 2.5rem; background: rgba(247,78,9,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.875rem; font-weight: 700; color: #fb923c; }
+    .testi-name { font-weight: 600; font-size: 0.875rem; }
+    .testi-detail { font-size: 0.75rem; color: #737373; }
+
+    /* ==================== CTA ==================== */
+    .cta-section { position: relative; padding: 6rem 1.5rem; overflow: hidden; }
+    @media(min-width:1024px) { .cta-section { padding: 6rem 3rem; } }
+    .cta-glow { position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(247,78,9,0.15) 0%, transparent 70%); pointer-events: none; }
+    .cta-blob { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 37.5rem; height: 37.5rem; background: rgba(247,78,9,0.05); border-radius: 50%; filter: blur(60px); pointer-events: none; }
+    .cta-card { background: linear-gradient(135deg, #fb923c, #D93D00); border-radius: 1.5rem; padding: 3rem; position: relative; overflow: hidden; max-width: 80rem; margin: 0 auto; }
+    @media(min-width:768px) { .cta-card { padding: 4rem; } }
+    .cta-deco1 { position: absolute; top: 0; right: 0; width: 16rem; height: 16rem; background: rgba(255,255,255,0.1); border-radius: 50%; transform: translateY(-50%) translateX(50%); }
+    .cta-deco2 { position: absolute; bottom: 0; left: 0; width: 12rem; height: 12rem; background: rgba(255,255,255,0.05); border-radius: 50%; transform: translateY(50%) translateX(-50%); }
+    .cta-inner { position: relative; z-index: 1; display: grid; gap: 3rem; }
+    @media(min-width:1024px) { .cta-inner { grid-template-columns: 1fr 1fr; align-items: center; } }
+    .cta-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 600; text-transform: uppercase; line-height: 0.95; color: #fff; margin-bottom: 1rem; }
+    .cta-desc { color: rgba(255,255,255,0.8); font-size: 1.125rem; line-height: 1.7; margin-bottom: 2rem; }
+    .cta-btns { display: flex; flex-direction: column; gap: 0.75rem; }
+    .cta-btn-wa { display: flex; align-items: center; gap: 1rem; background: #fff; color: #D93D00; padding: 1rem 1.5rem; border-radius: 1rem; font-weight: 600; transition: transform 0.15s; }
+    .cta-btn-wa:hover { transform: scale(1.05); }
+    .cta-btn-wa .cb-icon { width: 2.5rem; height: 2.5rem; background: rgba(247,78,9,0.1); border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .cta-btn-wa .cb-icon svg { width: 1.25rem; height: 1.25rem; }
+    .cta-btn-wa .cb-sub { font-size: 0.875rem; color: #fb923c; }
+    .cta-btn-phone { display: flex; align-items: center; gap: 1rem; background: rgba(255,255,255,0.1); backdrop-filter: blur(12px); color: #fff; padding: 1rem 1.5rem; border-radius: 1rem; font-weight: 600; border: 1px solid rgba(255,255,255,0.2); transition: background 0.15s; }
+    .cta-btn-phone:hover { background: rgba(255,255,255,0.2); }
+    .cta-btn-phone .cb-icon { width: 2.5rem; height: 2.5rem; background: rgba(255,255,255,0.2); border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .cta-btn-phone .cb-icon svg { width: 1.25rem; height: 1.25rem; }
+    .cta-btn-phone .cb-sub { font-size: 0.875rem; color: rgba(255,255,255,0.6); }
+    .cta-form { background: rgba(255,255,255,0.1); backdrop-filter: blur(12px); border-radius: 1rem; padding: 2rem; border: 1px solid rgba(255,255,255,0.2); }
+    .cta-form h3 { font-size: 1.25rem; font-weight: 600; color: #fff; margin-bottom: 1.5rem; }
+    .form-group { margin-bottom: 1rem; }
+    .form-label { display: block; font-size: 0.875rem; color: rgba(255,255,255,0.6); margin-bottom: 0.5rem; }
+    .form-input { width: 100%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 0.75rem 1rem; border-radius: 0.75rem; outline: none; transition: border-color 0.15s; font-family: inherit; font-size: 0.875rem; }
+    .form-input::placeholder { color: rgba(255,255,255,0.3); }
+    .form-input:focus { border-color: rgba(255,255,255,0.4); }
+    .form-submit { width: 100%; background: #fff; color: #D93D00; padding: 1rem; border-radius: 0.75rem; font-size: 1.125rem; font-weight: 600; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: transform 0.15s; font-family: inherit; }
+    .form-submit:hover { transform: scale(1.05); }
+
+    /* ==================== LOCATION ==================== */
+    .loc-grid { display: grid; gap: 1.5rem; max-width: 80rem; margin: 0 auto; }
+    @media(min-width:1024px) { .loc-grid { grid-template-columns: 2fr 1fr; } }
+    .loc-map { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 1.5rem; overflow: hidden; height: 20rem; }
+    .loc-map iframe { width: 100%; height: 100%; border: 0; filter: invert(90%) hue-rotate(180deg); }
+    .loc-info { display: flex; flex-direction: column; gap: 1rem; }
+    .info-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 1rem; padding: 1.5rem; display: flex; align-items: flex-start; gap: 1rem; }
+    .info-icon { width: 2.5rem; height: 2.5rem; background: rgba(247,78,9,0.1); border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .info-icon svg { width: 1.25rem; height: 1.25rem; color: #F74E09; }
+    .info-title { font-weight: 600; font-size: 0.875rem; margin-bottom: 0.25rem; }
+    .info-text { color: #a3a3a3; font-size: 0.875rem; }
+
+    /* ==================== FOOTER ==================== */
+    .footer { background: linear-gradient(135deg, #fb923c, #D93D00); color: #fff; border-radius: 3rem 3rem 0 0; padding: 4rem 1.5rem 2rem; }
+    @media(min-width:1024px) { .footer { padding: 4rem 3rem 2rem; } }
+    .footer-grid { display: grid; gap: 3rem; max-width: 80rem; margin: 0 auto 3rem; }
+    @media(min-width:768px) { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media(min-width:1024px) { .footer-grid { grid-template-columns: 1fr 1fr 1fr 1fr; } }
+    .footer-brand { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+    .footer-logo { width: 2.5rem; height: 2.5rem; background: rgba(255,255,255,0.2); border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; }
+    .footer-logo svg { width: 1.25rem; height: 1.25rem; color: #fff; }
+    .footer-name { font-size: 0.875rem; font-weight: 600; line-height: 1.2; }
+    .footer-sub { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.7); }
+    .footer-desc { color: rgba(255,255,255,0.7); font-size: 0.875rem; line-height: 1.7; }
+    .footer-heading { font-weight: 600; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem; }
+    .footer-links a { display: block; color: rgba(255,255,255,0.7); font-size: 0.875rem; padding: 0.25rem 0; transition: color 0.15s; }
+    .footer-links a:hover { color: #fff; }
+    .footer-contact li { display: flex; align-items: center; gap: 0.75rem; color: rgba(255,255,255,0.7); font-size: 0.875rem; margin-bottom: 0.75rem; }
+    .footer-contact svg { width: 1rem; height: 1rem; flex-shrink: 0; }
+    .footer-socials { display: flex; gap: 0.75rem; margin-top: 1.5rem; }
+    .footer-social { width: 2.5rem; height: 2.5rem; background: rgba(255,255,255,0.1); border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; transition: background 0.15s; }
+    .footer-social:hover { background: rgba(255,255,255,0.2); }
+    .footer-social svg { width: 1rem; height: 1rem; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.2); padding-top: 2rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; max-width: 80rem; margin: 0 auto; }
+    .footer-copy { color: rgba(255,255,255,0.6); font-size: 0.875rem; }
+    .footer-made { color: rgba(255,255,255,0.4); font-size: 0.75rem; }
+
+    /* ==================== FLOATING WA ==================== */
+    .floating-wa { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 50; width: 3.5rem; height: 3.5rem; background: #22c55e; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(34,197,94,0.3); transition: all 0.15s; }
+    .floating-wa:hover { background: #16a34a; transform: scale(1.1); }
+    .floating-wa svg { width: 1.5rem; height: 1.5rem; }
+  </style>
+</head>
+<body>
+
+  <!-- ===== MOBILE MENU (CSS Checkbox Hack) ===== -->
+  <input type="checkbox" id="menuToggle" hidden>f
+  <label for="menuToggle" class="mobile-bg" id="mobileOverlay"></label>
+  <div class="mobile-panel" id="mobileMenu">
+    <label for="menuToggle" class="mobile-panel-close">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </label>
+    <a href="#produk"><label for="menuToggle">Produk</label></a>
+    <a href="#layanan"><label for="menuToggle">Layanan</label></a>
+    <a href="#keunggulan"><label for="menuToggle">Keunggulan</label></a>
+    <a href="#testimoni"><label for="menuToggle">Testimoni</label></a>
+    <a href="#kontak"><label for="menuToggle">Kontak</label></a>
+    <a href="https://wa.me/6285234747304" target="_blank" class="btn btn-orange"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></svg> WhatsApp Kami</a>
+  </div>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="#" class="nav-brand">
+        <div class="nav-logo">
+          <svg class="anim-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12c-2-2.67-6-2.67-6 0s4 5.33 6 8c2-2.67 6-5.33 6-8s-4-2.67-6 0Z"/></svg>
+        </div>
+        <div>
+          <div class="nav-name">FATHUR SERVICE</div>
+          <div class="nav-sub">Jual Kipas Angin</div>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="#produk">Produk</a>
+        <a href="#layanan">Layanan</a>
+        <a href="#keunggulan">Keunggulan</a>
+        <a href="#testimoni">Testimoni</a>
+        <a href="#kontak">Kontak</a>
+      </div>
+      <div class="nav-cta">
+        <a href="https://wa.me/6285234747304" target="_blank">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+      <label for="menuToggle" class="hamburger">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+      </label>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-blob1 anim-float"></div>
+    <div class="hero-blob2 anim-float-r"></div>
+    <div class="hero-grid">
+      <div>
+        <div class="hero-badge anim-fade">
+          <div class="hero-badge-dot anim-pulse"></div>
+          <span>Terpercaya Sejak 2015</span>
+        </div>
+        <h1 class="anim-fade d1"><span class="gradient-text">Kipas</span><br><span class="orange">Angin</span><br><span class="gradient-text">Berkualitas</span></h1>
+        <p class="hero-desc anim-fade d2">Menyediakan berbagai jenis kipas angin berkualitas tinggi dengan harga terjangkau. Melayani juga servis & perbaikan kipas angin segala merek.</p>
+        <div class="hero-btns anim-fade d3">
+          <a href="#produk" class="btn btn-orange">Lihat Produk <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+          <a href="#layanan" class="btn btn-ghost"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> Servis Kipas</a>
+        </div>
+        <div class="hero-stats anim-fade d4">
+          <div><div class="stat-num">5000<span class="orange">+</span></div><div class="stat-label">Unit Terjual</div></div>
+          <div><div class="stat-num">3000<span class="orange">+</span></div><div class="stat-label">Servis Selesai</div></div>
+          <div><div class="stat-num">9<span class="orange">+</span></div><div class="stat-label">Tahun Pengalaman</div></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card anim-float" style="transform:rotateY(-5deg) rotateX(5deg);">
+          <img src="https://picsum.photos/seed/fan-hero-main/500/600.jpg" alt="Kipas Angin Premium">
+          <div class="hero-card-overlay"></div>
+          <div class="hero-card-badge">
+            <div><div class="tag">Best Seller</div><div class="name">Kipas Angin Stand 16"</div></div>
+            <div style="text-align:right"><div class="old">Rp 450.000</div><div class="price">Rp 325.000</div></div>
+          </div>
+        </div>
+        <div class="hero-float-badge anim-float-d anim-glow"><div class="big">-30%</div><div class="small">Diskon</div></div>
+        <div class="hero-float-fan anim-float-r">
+          <svg class="anim-spin-s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12c-2-2.67-6-2.67-6 0s4 5.33 6 8c2-2.67 6-5.33 6-8s-4-2.67-6 0Z"/></svg>
+        </div>
+        <div class="hero-float-rating anim-float">
+          <div class="stars">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div class="count">4.9/5 (280+)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MARQUEE ===== -->
+  <section class="marquee">
+    <div class="anim-marquee" style="display:flex;gap:3rem;white-space:nowrap;">
+      <span class="marquee-item">Maspion</span><span class="marquee-dot">•</span>
+      <span class="marquee-item">Cosmos</span><span class="marquee-dot">•</span>
+      <span class="marquee-item">Miyako</span><span class="marquee-dot">•</span>
+      <span class="marquee-item">Sanken</span><span class="marquee-dot">•</span>
+      <span class="marquee-item">Panasonic</span><span class="marquee-dot">•</span>
+      <span class="marquee-item">Sharp</span><span class="marquee-dot">•</span>
+      <span class="marquee-item">Regency</span><span class="marquee-dot">•</span>
+      <span class="marquee-item">Maspion</span><span class="marquee-dot">•</span>
+      <span class="marquee-item">Cosmos</span><span class="marquee-dot">•</span>
+      <span class="marquee-item">Miyako</span><span class="marquee-dot">•</span>
+      <span class="marquee-item">Sanken</span><span class="marquee-dot">•</span>
+      <span class="marquee-item">Panasonic</span><span class="marquee-dot">•</span>
+      <span class="marquee-item">Sharp</span><span class="marquee-dot">•</span>
+      <span class="marquee-item">Regency</span>
+    </div>
+  </section>
+
+  <!-- ===== PRODUK ===== -->
+  <section id="produk" class="section section-dark">
+    <div class="section-header">
+      <div class="section-badge anim-fade"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span>Katalog Produk</span></div>
+      <h2 class="section-title anim-fade d1"><span class="gradient-text">Pilihan</span> <span class="orange">Kipas</span> <span class="gradient-text">Angin</span></h2>
+      <p class="section-desc anim-fade d2">Berbagai jenis kipas angin untuk setiap kebutuhan ruangan Anda.</p>
+    </div>
+    <div class="products-grid">
+      <div class="product-card anim-fade d2">
+        <div class="product-img-wrap"><img class="product-img" src="soldout.jpg" alt="Kipas Stand"><span class="product-tag">Best Seller</span><span class="product-disc">-30%</span></div>
+        <div class="product-body"><div class="product-cat">Kipas Dinding</div><h3 class="product-name">Kipas Angin Stand 16" Maspion</h3><p class="product-desc">3 kecepatan, swing otomatis, motor tahan lama, baling-baling aerodinamis.</p><div class="product-pricing"><span class="price-old">SOLDS</span><span class="price-new">HABIS STOCK</span></div><a href="https://wa.me/6285234747304?text=Halo%20Pak%20Fathur%2C%20saya%20ingin%20memesan%20Kipas%20Stand%2016%22%20Maspion%20(Rp%20325.000)" target="_blank" class="btn-order"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg> Pesan via WhatsApp</a></div>
+      </div>
+      <div class="product-card anim-fade d3">
+        <div class="product-img-wrap"><img class="product-img" src="cosmos13.png" alt="Kipas Dinding"><span class="product-tag">Populer</span></div>
+        <div class="product-body"><div class="product-cat">Kipas Stand</div><h3 class="product-name">Kipas Angin Dinding 14" Cosmos</h3><p class="product-desc">Hemat ruang, 3 speed, motor turbo, cocok untuk kamar tidur & ruang tamu.</p><div class="product-pricing"><span class="price-old">Rp 320.000</span><span class="price-new">Rp 245.000</span></div><a href="https://wa.me/6285234747304?text=Halo%20Pak%20Fathur%2C%20saya%20ingin%20memesan%20Kipas%20Dinding%2014%22%20Cosmos%20(Rp%20245.000)" target="_blank" class="btn-order"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg> Pesan via WhatsApp</a></div>
+      </div>
+      <div class="product-card anim-fade d4">
+        <div class="product-img-wrap"><img class="product-img" src="soldout.jpg" alt="Kipas Langit-langit"><span class="product-tag">Premium</span><span class="product-disc">-20%</span></div>
+        <div class="product-body"><div class="product-cat">Kipas Langit-langit</div><h3 class="product-name">Kipas Langit-langit 52" LED</h3><p class="product-desc">Dengan lampu LED, remote control, 6 speed, desain modern mewah.</p><div class="product-pricing"><span class="price-old">SOLD</span><span class="price-new">HABIS STOCK</span></div><a href="https://wa.me/6285234747304?text=Halo%20Pak%20Fathur%2C%20saya%20ingin%20memesan%20Kipas%20Langit-langit%2052%22%20LED%20(Rp%20960.000)" target="_blank" class="btn-order"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg> Pesan via WhatsApp</a></div>
+      </div>
+      <div class="product-card anim-fade d3">
+        <div class="product-img-wrap"><img class="product-img" src="soldout.jpg" alt="Kipas Meja"><span class="product-tag">Hemat</span></div>
+        <div class="product-body"><div class="product-cat">Kipas Meja</div><h3 class="product-name">Kipas Angin Meja 12" Miyako</h3><p class="product-desc">Kompak & portabel, 2 kecepatan, ideal untuk meja kerja & belajar.</p><div class="product-pricing"><span class="price-old">SOLD</span><span class="price-new">HABIS STOCK</span></div><a href="https://wa.me/6285234747304?text=Halo%20Pak%20Fathur%2C%20saya%20ingin%20memesan%20Kipas%20Meja%2012%22%20Miyako%20(Rp%20135.000)" target="_blank" class="btn-order"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg> Pesan via WhatsApp</a></div>
+      </div>
+      <div class="product-card anim-fade d4">
+        <div class="product-img-wrap"><img class="product-img" src="soldout.jpg" alt="Kipas Stand 18"><span class="product-tag">New</span></div>
+        <div class="product-body"><div class="product-cat">Kipas Stand</div><h3 class="product-name">Kipas Angin Stand 18" Sanken</h3><p class="product-desc">Extra besar, angin lebih kencang, timer otomatis, motor ball bearing.</p><div class="product-pricing"><span class="price-old">SOLD</span><span class="price-new">HABIS STOCK</span></div><a href="https://wa.me/6285234747304?text=Halo%20Pak%20Fathur%2C%20saya%20ingin%20memesan%20Kipas%20Stand%2018%22%20Sanken%20(Rp%20420.000)" target="_blank" class="btn-order"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg> Pesan via WhatsApp</a></div>
+      </div>
+      <div class="product-card anim-fade d5">
+        <div class="product-img-wrap"><img class="product-img" src="soldout.jpg" alt="Kipas Dinding 16"><span class="product-tag">Promo</span><span class="product-disc">-25%</span></div>
+        <div class="product-body"><div class="product-cat">Kipas Dinding</div><h3 class="product-name">Kipas Dinding 16" Sharp</h3><p class="product-desc">Angin besar hemat listrik, 3 speed + swing, desain elegan slim.</p><div class="product-pricing"><span class="price-old">SOLD</span><span class="price-new">HABIS STOCK</span></div><a href="https://wa.me/6285234747304?text=Halo%20Pak%20Fathur%2C%20saya%20ingin%20memesan%20Kipas%20Dinding%2016%22%20Sharp%20(Rp%20299.000)" target="_blank" class="btn-order"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg> Pesan via WhatsApp</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LAYANAN ===== -->
+  <section id="layanan" class="section section-light rounded-top">
+    <div class="section-header">
+      <div class="section-badge-o anim-fade"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span>Layanan Kami</span></div>
+      <h2 class="section-title-dark anim-fade d1">Servis <span class="orange">Kipas Angin</span></h2>
+      <p class="section-desc-dark anim-fade d2">Selain menjual, kami juga melayani perbaikan kipas angin segala merek dengan garansi servis.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card anim-fade d2">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <h3 class="service-title">Perbaikan Motor</h3>
+        <p class="service-desc">Servis motor kipas yang mati, berisik, atau berputar lambat. Ganti bearing, lilit ulang kumparan.</p>
+      </div>
+      <div class="service-card anim-fade d3">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg></div>
+        <h3 class="service-title">Ganti Baling-baling</h3>
+        <p class="service-desc">Penggantian baling-baling yang pecah, retak, atau patah dengan suku cadang original.</p>
+      </div>
+      <div class="service-card anim-fade d4">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+        <h3 class="service-title">Perbaikan Elektronik</h3>
+        <p class="service-desc">Perbaikan switch, kapasitor, kabel putus, remote control, dan panel kontrol kipas.</p>
+      </div>
+      <div class="service-card anim-fade d3">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <h3 class="service-title">Servis ke Rumah</h3>
+        <p class="service-desc">Tidak perlu repot bawa kipas ke toko. Kami siap datang ke lokasi Anda untuk perbaikan.</p>
+      </div>
+      <div class="service-card anim-fade d4">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg></div>
+        <h3 class="service-title">Cuci & Bersihkan</h3>
+        <p class="service-desc">Layanan pembersihan menyeluruh agar kipas kembali bersih, sehat, dan angin lebih sejuk.</p>
+      </div>
+      <div class="service-cta anim-fade d5">
+        <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        <h3>Konsultasi Gratis</h3>
+        <p>Bingung pilih kipas atau masalah dengan kipas Anda? Konsultasikan gratis sekarang!</p>
+        <a href="https://wa.me/6285234747304" target="_blank" class="btn-white"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></svg> Hubungi Kami</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== KEUNGGULAN ===== -->
+  <section id="keunggulan" class="section section-light">
+    <div class="adv-grid">
+      <div class="anim-fade d2">
+        <div class="adv-img">
+          <img src="https://picsum.photos/seed/fan-workshop-7/500/600.jpg" alt="Workshop">
+          <div class="adv-img-overlay"></div>
+          <div class="adv-img-badge">
+            <div class="ib-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <div><div class="ib-title">Dijaamin Awet Dan Tahan Lama</div><div class="ib-desc">Setiap perbaikan kami berikan garansi</div></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="section-badge-o anim-fade"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg><span>Mengapa Pilih Kami</span></div>
+        <h2 class="section-title-dark anim-fade d1" style="margin-bottom:2rem;">Keunggulan <span class="orange">Fathur</span> Service</h2>
+        <div class="adv-list" style="display:flex;flex-direction:column;gap:1.5rem;">
+          <div class="adv-item anim-fade d2">
+            <div class="adv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+            <div><h4 class="adv-title">Harga Terjangkau & Transparan</h4><p class="adv-desc">Harga kompetitif tanpa biaya tersembunyi. Bandingkan dengan toko lain!</p><div class="progress-track"><div class="progress-fill" style="--w:95%"></div></div></div>
+          </div>
+          <div class="adv-item anim-fade d3">
+            <div class="adv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+            <div><h4 class="adv-title">Teknisi Berpengalaman</h4><p class="adv-desc">Tim teknisi bersertifikat dengan pengalaman 9+ tahun di bidang elektronik.</p><div class="progress-track"><div class="progress-fill" style="--w:90%"></div></div></div>
+          </div>
+          <div class="adv-item anim-fade d4">
+            <div class="adv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+            <div><h4 class="adv-title">Suku Cadang Original</h4><p class="adv-desc">Kami hanya menggunakan spare part original untuk menjamin kualitas dan ketahanan.</p><div class="progress-track"><div class="progress-fill" style="--w:98%"></div></div></div>
+          </div>
+          <div class="adv-item anim-fade d5">
+            <div class="adv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+            <div><h4 class="adv-title">Pelayanan Cepat & Ramah</h4><p class="adv-desc">Respon cepat, pengerjaan tepat waktu, dan pelayanan yang ramah & satisfaktif.</p><div class="progress-track"><div class="progress-fill" style="--w:92%"></div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TESTIMONI ===== -->
+  <section id="testimoni" class="section section-dark rounded-top">
+    <div class="section-header">
+      <div class="section-badge anim-fade"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Testimoni</span></div>
+      <h2 class="section-title anim-fade d1"><span class="gradient-text">Kata</span> <span class="orange">Pelanggan</span></h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card anim-fade d2">
+        <div class="testi-stars"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <p class="testi-text">"Kipas angin yang saya beli kualitasnya bagus banget, anginnya kencang tapi tidak berisik. Harganya juga lebih murah dari toko lain. Recommended!"</p>
+        <div class="testi-author"><div class="testi-avatar">BS</div><div><div class="testi-name">Budi Santoso</div><div class="testi-detail">Beli Kipas Stand 16"</div></div></div>
+      </div>
+      <div class="testi-card anim-fade d3">
+        <div class="testi-stars"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <p class="testi-text">"Kipas saya yang mati bisa hidup lagi setelah diservis di Fathur. Biayanya wajar dan ada garansinya. Terima kasih pak Fathur!"</p>
+        <div class="testi-author"><div class="testi-avatar">SR</div><div><div class="testi-name">Siti Rahayu</div><div class="testi-detail">Servis Kipas Dinding</div></div></div>
+      </div>
+      <div class="testi-card anim-fade d4">
+        <div class="testi-stars"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <p class="testi-text">"Saya pesan kipas langit-langit untuk rumah baru, dikirim tepat waktu dan dipasangin juga sama pak Fathur. Pelayanan luar biasa!"</p>
+        <div class="testi-author"><div class="testi-avatar">AW</div><div><div class="testi-name">Ahmad Wijaya</div><div class="testi-detail">Beli Kipas Langit-langit</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA / KONTAK ===== -->
+  <section id="kontak" class="cta-section">
+    <div class="cta-glow"></div>
+    <div class="cta-blob"></div>
+    <div class="cta-card anim-fade">
+      <div class="cta-deco1"></div>
+      <div class="cta-deco2"></div>
+      <div class="cta-inner">
+        <div>
+          <h2 class="cta-title">Butuh Kipas Baru<br>atau Servis?</h2>
+          <p class="cta-desc">Hubungi kami sekarang via WhatsApp untuk konsultasi gratis, pemesanan, atau jadwalkan servis ke rumah Anda.</p>
+          <div class="cta-btns">
+            <a href="https://wa.me/6285234747304" target="_blank" class="cta-btn-wa">
+              <div class="cb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></svg></div>
+              <div><div class="cb-sub">Chat WhatsApp</div><div>0852-3474-7304</div></div>
+            </a>
+            <a href="tel:0852-34747304" class="cta-btn-phone">
+              <div class="cb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+              <div><div class="cb-sub">Telepon Langsung</div><div>0852-3474-7304</div></div>
+            </a>
+          </div>
+        </div>
+        <div class="cta-form">
+          <h3>Kirim Pesan</h3>
+          <form action="https://wa.me/6285234747304" method="get" target="_blank">
+            <div class="form-group"><label class="form-label">Nama Lengkap</label><input type="text" name="text" placeholder="Masukkan nama Anda" class="form-input" required></div>
+            <div class="form-group"><label class="form-label">No. WhatsApp</label><input type="tel" placeholder="08xx-xxxx-xxxx" class="form-input" required></div>
+            <div class="form-group"><label class="form-label">Kebutuhan</label><select class="form-input" required><option value="">Pilih kebutuhan...</option><option>Beli Kipas Angin</option><option>Servis Kipas Angin</option><option>Konsultasi</option><option>Lainnya</option></select></div>
+            <div class="form-group"><label class="form-label">Pesan</label><textarea rows="3" placeholder="Tulis pesan Anda..." class="form-input" required></textarea></div>
+            <button type="submit" class="form-submit"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Kirim Pesan</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LOKASI ===== -->
+  <section class="section section-dark">
+    <div class="section-header">
+      <div class="section-badge anim-fade"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg><span>Lokasi Toko</span></div>
+      <h2 class="section-title anim-fade d1"><span class="gradient-text">Temukan</span> <span class="orange">Kami</span></h2>
+    </div>
+    <div class="loc-grid">
+      <div class="loc-map anim-fade d2">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3955.5146566060413!2d112.6835621742111!3d-7.523826074246065!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7875001ff982bf%3A0x6e76cf0a6cd1efbb!2sFatur%20Jual%2CService%20Kipas%20Angin!5e0!3m2!1sid!2sid!4v1720597300000!5m2!1sid!2sid" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+      <div class="loc-info">
+        <div class="info-card anim-fade d3"><div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div><div><h4 class="info-title">Alamat</h4><p class="info-text">Desa.Wunut, Dusun.Kesamben Kidul, RT 19, RW 03</p></div></div>
+        <div class="info-card anim-fade d4"><div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><h4
