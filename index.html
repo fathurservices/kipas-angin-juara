@@ -294,9 +294,9 @@
 
     <div class="filters" id="filters">
       <button class="chip active" data-cat="all">Semua</button>
-      <button class="chip" data-cat="berdiri">Berdiri</button>
+      <button class="chip" data-cat="Meja">Meja</button>
       <button class="chip" data-cat="dinding">Dinding</button>
-      <button class="chip" data-cat="meja">Meja</button>
+      <button class="chip" data-cat="Berdiri">Berdiri</button>
       <button class="chip" data-cat="tower">Tower</button>
       <button class="chip" data-cat="gantung">Gantung</button>
       <button class="chip" data-cat="industrial">Industrial</button>
@@ -363,10 +363,10 @@
         </div>
         <div class="hours" style="margin-top:14px;padding-top:14px;border-top:1px solid var(--line)">
           <p><b>Pengambilan / Pengantaran:</b> Ambil langsung di tempat kami, atau produk diantar ke alamat Anda (area tertentu).</p>
-          <p><b>Pembayaran:</b> Tunai di tempat (cash) atau transfer bank.</p>
+          <p><b>Pembayaran:</b> Tunai di tempat (cash) atau transfer rekening</p>
           <p><b>Grosir / reseller:</b> diskon khusus, hubungi admin via WhatsApp.</p>
         </div>
-        <a class="btn btn-wa" style="margin-top:14px" href="https://wa.me/6285234747304?text=Halo%20Anginova%2C%20saya%20ingin%20bertanya%20soal%20produk%20kipas%20angin." target="_blank" rel="noopener">
+        <a class="btn btn-wa" style="margin-top:14px" href="https://wa.me/628523474730?text=Halo%20Anginova%2C%20saya%20ingin%20bertanya%20soal%20produk%20kipas%20angin." target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 3.9A11 11 0 003.4 17.3L2 22l4.8-1.3A11 11 0 1020 3.9zM12 20a8 8 0 01-4.1-1.1l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 1112 20z"/></svg>
           Mulai Chat di WhatsApp
         </a>
@@ -389,10 +389,11 @@
     </div>
     <div>
       <h4>Produk</h4>
-      <a href="#produk">Kipas Berdiri</a>
-      <a href="#produk">Kipas Dinding</a>
       <a href="#produk">Kipas Meja</a>
+      <a href="#produk">Kipas Dinding</a>
+      <a href="#produk">Kipas Berdiri</a>
       <a href="#produk">Kipas Tower</a>
+      <a href="#produk">KIpas Gantung</a>
       <a href="#produk">Kipas Industrial</a>
     </div>
     <div>
@@ -413,17 +414,17 @@
 <script>
 (function(){
   "use strict";
-  var WA = "6285234747304";
+  var WA = "6282142456684";
 
   // ===== Product data =====
   var products = [
-    {id:1, cat:"berdiri", catLabel:"Kipas Berdiri", name:"Kipas Angin Berdiri 16\" Sejuk Hemat", price:285000, old:340000, rating:4.8, sold:312, badge:"Terlaris", img:"soldout.jpg"},
-    {id:2, cat:"berdiri", catLabel:"Kipas Berdiri", name:"Kipas Angin Berdiri 18\" Digital Remote", price:399000, old:0, rating:4.7, sold:154, badge:"Baru", img:"soldout.jpg"},
-    {id:3, cat:"dinding", catLabel:"Kipas Dinding", name:"Kipas Angin Dinding 18\" Power Wall", price:320000, old:375000, rating:4.6, sold:98, badge:"Diskon", img:"soldout.jpg"},
-    {id:4, cat:"dinding", catLabel:"Kipas Dinding", name:"Kipas Angin Dinding 14\" Compact", price:245000, old:0, rating:4.5, sold:76, badge:"", img:"soldout.jpg"},
-    {id:5, cat:"meja", catLabel:"Kipas Stand", name:"Kipas Angin Berdiri / Stand Fan", price:165000, old:199000, rating:4.7, sold:210, badge:"Diskon", img:"cosmos13.png"},
-    {id:6, cat:"meja", catLabel:"Kipas Dinding", name:"Kipas Angin Dinding", price:89000, old:0, rating:4.4, sold:188, badge:"Hemat", img:"dinding12.png"},
-    {id:7, cat:"tower", catLabel:"Kipas Tower", name:"Kipas Angin Tower Silent Breeze", price:549000, old:625000, rating:4.8, sold:67, badge:"Diskon", img:"soldout.jpg"},
+    {id:1, cat:"Meja", catLabel:"Kipas Berdiri", name:"Kipas Angin Maspion", price:285000, old:340000, rating:4.8, sold:21, badge:"Terlaris", img:"soldout.jpg"},
+    {id:2, cat:"Meja", catLabel:"Kipas Berdiri", name:"Kipas Angin Maspion 18\" Digital Remote", price:399000, old:0, rating:4.7, sold:12, badge:"Baru", img:"soldout.jpg"},
+    {id:3, cat:"dinding", catLabel:"Kipas Dinding", name:"Kipas Angin Dinding Maspion 18\" Power Wall", price:40000, old:375000, rating:4.6, sold:22, badge:"Diskon", img:"soldout.jpg"},
+    {id:4, cat:"dinding", catLabel:"Kipas Dinding", name:"Kipas Angin Dinding Maspion", price:89000, old:0, rating:4.4, sold:14, badge:"Hemat", img:"dinding12.png"},
+    {id:5, cat:"Berdiri", catLabel:"Kipas Stand", name:"Kipas Angin Stand Cosmos 18, Include Dengan Bering", price:165000, old:199000, rating:4.7, sold:18, badge:"Diskon", img:"cosmos13.png"},
+    {id:6, cat:"Berdiri", catLabel:"Kipas Stand", name:"Kipas Angin Stand Cosmos 19, Include Bearing", price:170000, old:0, rating:4.4, sold:24, badge:"Hemat", img:"cosmos14.png"},
+    {id:7, cat:"tower", catLabel:"Kipas Tower", name:"Kipas Angin Tower Silent Breeze", price:549000, old:625000, rating:4.8, sold:20, badge:"Diskon", img:"soldout.jpg"},
     {id:8, cat:"tower", catLabel:"Kipas Tower", name:"Kipas Angin Tower Premium 3-in-1", price:675000, old:0, rating:4.6, sold:41, badge:"Premium", img:"soldout.jpg"},
     {id:9, cat:"gantung", catLabel:"Kipas Gantung", name:"Kipas Angin Gantung LED Langit Sejuk", price:425000, old:499000, rating:4.7, sold:53, badge:"Diskon", img:"soldout.jpg"},
     {id:10, cat:"industrial", catLabel:"Kipas Industrial", name:"Kipas Angin Industrial 24\" Power Blast", price:875000, old:0, rating:4.9, sold:38, badge:"Power", img:"soldout.jpg"}
